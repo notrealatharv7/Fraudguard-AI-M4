@@ -94,14 +94,13 @@ class FraudDetectorApp extends StatelessWidget {
           foregroundColor: colorScheme.onSurface,
         ),
       ),
-      cardTheme: CardThemeData(
+      // Card theme configuration
+      cardTheme: const CardThemeData(
         elevation: 1,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: colorScheme.onSurface.withOpacity(0.1), width: 1),
+          borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-        margin: const EdgeInsets.all(0),
-        color: colorScheme.surface,
+        margin: EdgeInsets.all(0),
       ),
     );
   }
