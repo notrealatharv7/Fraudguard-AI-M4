@@ -2,34 +2,21 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=/Fraudguard-AI-M4/">
   <title>Fraudguard-AI | Fraud Detection</title>
   <script>
     // GitHub Pages 404.html fix for Flutter web apps
-    // This redirects all 404s to index.html to handle client-side routing
+    // Redirects all 404s to index.html to handle client-side routing
     var path = window.location.pathname;
-    var search = window.location.search;
     var hash = window.location.hash;
+    var search = window.location.search;
     
-    // If we're not already at index.html, redirect to it
-    if (path !== '/Fraudguard-AI-M4/' && path !== '/Fraudguard-AI-M4/index.html') {
-      var newPath = '/Fraudguard-AI-M4/' + (hash || '');
-      if (search) {
-        newPath += search;
-      }
-      window.location.replace(newPath);
-    } else {
-      // If we're at index.html but got a 404, reload the page
-      window.location.reload();
-    }
+    // Redirect to index.html with hash and search params preserved
+    var redirectUrl = '/Fraudguard-AI-M4/' + hash + search;
+    window.location.replace(redirectUrl);
   </script>
 </head>
 <body>
-  <p>Redirecting...</p>
-  <script>
-    // Fallback: redirect to index.html after a short delay
-    setTimeout(function() {
-      window.location.href = '/Fraudguard-AI-M4/';
-    }, 100);
-  </script>
+  <p>Redirecting to <a href="/Fraudguard-AI-M4/">Fraudguard-AI</a>...</p>
 </body>
 </html>
