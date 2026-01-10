@@ -1,6 +1,6 @@
 # Fraud Detection API - Dockerfile
-# Uses Python 3.10 as specified in requirements
-# Build from project root: docker build -f backend/Dockerfile -t fraud-api .
+# For Railway deployment with Root Directory = backend
+# This Dockerfile assumes Railway root directory is set to backend/
 
 FROM python:3.10-slim
 
@@ -8,19 +8,19 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Copy requirements first for better caching
-COPY backend/requirements.txt .
+COPY requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy ML model directory
+# Copy ML model directory (relative to backend/)
 COPY ml/ ./ml/
 
-# Copy backend application code
-COPY backend/main.py .
+# Copy application code
+COPY main.py .
 
 # Expose port 8000
 EXPOSE 8000
 
 # Run the FastAPI application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "main.py"]
