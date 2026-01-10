@@ -3,10 +3,11 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger on pushes to main branch
+      - main
     paths:
-      - 'flutter_app/fraud_detector/**'  # Only trigger when Flutter app changes
-  workflow_dispatch:  # Allow manual trigger
+      - 'flutter_app/fraud_detector/**'
+      - '.github/workflows/flutter-web-deploy.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -23,6 +24,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,8 +32,17 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.0'
-          channel: 'stable'
+          flutter-version: '3.22.3'
+          channel: stable
+
+      - name: Cache Flutter Pub packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
 
       - name: Get dependencies
         working-directory: flutter_app/fraud_detector
@@ -41,10 +52,10 @@ jobs:
         working-directory: flutter_app/fraud_detector
         run: flutter build web --release --base-href "/Fraudguard-AI-M4/"
 
-      - name: Setup Pages
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: flutter_app/fraud_detector/build/web
