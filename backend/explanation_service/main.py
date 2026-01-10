@@ -1,16 +1,14 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from transformers import pipeline
 
 app = FastAPI(
     title="Explanation AI Service",
-    description="Generates explanations for fraud predictions.",
+    description="Generates explanations for fraud predictions using rule-based logic.",
     version="1.0.0"
 )
 
-# Load the Hugging Face model on startup
-# This can take a moment, but it's only done once.
-explainer = pipeline("text-generation", model="distilgpt2")
+# Note: Using rule-based explanation generation (no ML models needed)
+# This keeps the service lightweight and fast
 
 class PredictionDetails(BaseModel):
     transactionAmount: float
