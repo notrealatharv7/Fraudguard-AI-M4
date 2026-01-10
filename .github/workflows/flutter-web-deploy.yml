@@ -50,7 +50,14 @@ jobs:
 
       - name: Build Flutter Web
         working-directory: flutter_app/fraud_detector
-        run: flutter build web --release --base-href "/Fraudguard-AI-M4/"
+        run: flutter build web --release --base-href "/Fraudguard-AI-M4/" --web-renderer canvaskit
+
+      - name: Copy 404.html for GitHub Pages routing
+        working-directory: flutter_app/fraud_detector
+        run: |
+          if [ -f web/404.html ]; then
+            cp web/404.html build/web/404.html
+          fi
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
